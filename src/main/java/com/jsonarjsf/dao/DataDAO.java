@@ -4,36 +4,41 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.jsonarjsf.model.Customer;
 import com.jsonarjsf.util.DatabaseConnect;
 import com.jsonarjsf.util.FaceMessageHelper;
 
-public class LoginDAO {
-	public static boolean validate(String username, String password) {
+public class DataDAO { //TODO: need to be fixed (not correct code)
+	public static List<Customer> readCustomers() {  //TODO: how will you check user is currently logged in.
+		ArrayList<Customer> customerList = new ArrayList<Customer>();
 		Connection con = null;
 		PreparedStatement ps = null;
 		try {
 			con = DatabaseConnect.getConnection();
 			if(con == null) {
 				FaceMessageHelper.showFaceMessage("Failed to connect to the database. Please try again.", "Connection to the database was unsuccessful.");
-				return false;
+				return customerList;
 			}
-			ps = con.prepareStatement("Select uname, password from Users where uname = ? and password = ?");
-			ps.setString(1, username);
-			ps.setString(2, password);
+			ps = con.prepareStatement("Select * from customers");
+//			ps.setString(1, username);
+//			ps.setString(2, password);
 			ResultSet rs = ps.executeQuery();
 
-			if (rs.next()) {
+			while (rs.next()) {
 				//result found, means valid inputs
-				return true;
+				
+				Customer customer = new Customer(3, "Mike");
+				customerList.add(customer);
 			}
 		} catch (SQLException ex) { //TODO: Prepare to fix for xss and sqlinjection attack.
 			System.out.println("Login error -->" + ex.getMessage());
-			return false;
+			return customerList;
 		} finally {
 			DatabaseConnect.close(con);
 		}
-		return false;
+		return customerList;
 	}
 }
-

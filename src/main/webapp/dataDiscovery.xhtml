@@ -17,7 +17,8 @@
       	#{login.user}
   		<h:outputText value="#{msg.sign}" /></h4>
   		<br></br><br></br>
-  		<h:commandButton action="login"
+   		<h:commandButton action="#{login.logout()}"
 			value="#{msg.logout_button_text}"></h:commandButton>
+		<h:commandLink action="#{login.logout()}" value="Logout"></h:commandLink>
     </h:body>
 </html>
