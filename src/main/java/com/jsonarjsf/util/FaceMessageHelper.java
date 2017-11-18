@@ -14,7 +14,8 @@ public class FaceMessageHelper {
     }
      
 	public static void error(String message) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", message));
+		System.out.println("Find: facemessagehelp error method called.");
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", message));
     }
 	
     public static void fatal(String message) {

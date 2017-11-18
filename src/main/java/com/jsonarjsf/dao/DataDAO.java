@@ -12,7 +12,7 @@ import com.jsonarjsf.util.DatabaseConnect;
 import com.jsonarjsf.util.FaceMessageHelper;
 
 public class DataDAO { //TODO: need to be fixed (not correct code)
-	public static List<Customer> readCustomers() {  //TODO: how will you check user is currently logged in.
+	public static List<Customer> getCustomers() {  //TODO: how will you check user is currently logged in.
 		ArrayList<Customer> customerList = new ArrayList<Customer>();
 		Connection con = null;
 		PreparedStatement ps = null;

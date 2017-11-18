@@ -28,9 +28,10 @@
 			<p:message for="password" />
 		</h:panelGrid>
 		<br></br><br></br>
-		<p:commandButton id="loginbutton" ajax="false" value="#{msg.login_button_text}" icon="fa-lock" action="#{loginBean.validateUserPassword}" update="loginForm" ></p:commandButton>
+		<p:commandButton id="loginbutton" ajax="false" value="#{msg.login_button_text}" icon="fa fa-unlock-alt" action="#{loginBean.validateUserPassword}" update="loginForm" ></p:commandButton>
 		<p:separator />
  		<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
+ 		<h:messages style="color:red;margin:8px;" />
 	</h:form>
 </h:body>
 </html>
