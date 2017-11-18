@@ -1,4 +1,4 @@
-package com.jsonarjsf.model;
+package com.jsonarjsf.util;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
@@ -21,11 +21,11 @@ public class UserPersistHelper {
 		return session.getAttribute("username").toString();
 	}
 
-	public static String getUserId() {
-		HttpSession session = getSession();
-		if (session != null)
-			return (String) session.getAttribute("userid");
-		else
-			return null;
-	}
+//	public static String getUserId() {
+//		HttpSession session = getSession();
+//		if (session != null)
+//			return (String) session.getAttribute("userid");
+//		else
+//			return null;
+//	}
 }

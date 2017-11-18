@@ -21,6 +21,7 @@ public class LoginDAO {
 			ps = con.prepareStatement("Select uname, password from Users where uname = ? and password = ?");
 			ps.setString(1, username);
 			ps.setString(2, password);
+			
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) {

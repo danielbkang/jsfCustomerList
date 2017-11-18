@@ -20,16 +20,16 @@
     </h:form> -->
     <h:form>
 		<h:outputText value="Username" />
-		<h:inputText id="username" value="#{login.user}"></h:inputText>
+		<h:inputText id="username" value="#{loginBean.user}"></h:inputText>
 		<h:message for="username"></h:message>
 		<br></br><br></br>
 		
 		<h:outputText value="Password" />
-		<h:inputSecret id="password" value="#{login.pwd}"></h:inputSecret>
+		<h:inputSecret id="password" value="#{loginBean.pwd}"></h:inputSecret>
 		<h:message for="password"></h:message>
 		<br></br><br></br>
 		
-		<h:commandButton action="#{login.validateUserPassword}"
+		<h:commandButton action="#{loginBean.validateUserPassword}"
 			value="#{msg.login_button_text}"></h:commandButton>
 	</h:form>
 </h:body>
