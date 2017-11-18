@@ -56,9 +56,15 @@ public class LoginBean implements Serializable {
 			System.out.println("Login button clicked, and database validation matched.");
 			return "dataDiscovery?faces-redirect=true";
 		} else {
-			FaceMessageHelper.showFaceMessage("Incorrect Username and Password", "Please enter correct username and Password");
+			System.out.println("FIND: incorrect username and password.");
+			FaceMessageHelper.error("Incorrect Username and Password. Please enter correct username and Password");
+			initialize();
 			return "login?faces-redirect=true";
 		}
+	}
+	private void initialize() {
+		user = "";
+		pwd = "";
 	}
 	
 	// logout event, invalidate session

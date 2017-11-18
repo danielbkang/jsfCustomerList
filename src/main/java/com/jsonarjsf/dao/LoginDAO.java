@@ -15,7 +15,7 @@ public class LoginDAO {
 		try {
 			con = DatabaseConnect.getConnection();
 			if(con == null) {
-				FaceMessageHelper.showFaceMessage("Failed to connect to the database. Please try again.", "Connection to the database was unsuccessful.");
+				FaceMessageHelper.fatal("Failed to connect to the database. Please contact a developer or please try again. Connection to the database was unsuccessful.");
 				return false;
 			}
 			ps = con.prepareStatement("Select uname, password from Users where uname = ? and password = ?");

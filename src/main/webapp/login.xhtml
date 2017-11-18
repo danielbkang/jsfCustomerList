@@ -4,7 +4,8 @@
  
 <html xmlns="http://www.w3.org/1999/xhtml"
     xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html">
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui">
  
 <f:loadBundle basename="com.jsonarjsf.properties.messages" var="msg" />
  
@@ -12,25 +13,24 @@
     <title>#{msg.title}</title>
 </h:head>
 <h:body>
-    <h3><h:outputText value="#{msg.header}" /></h3>
-<!--     <h:form>
-        <h:inputText id="user" value="#{login.user}"></h:inputText>
-        <h:inputText id="pwd" value="#{login.pwd}"></h:inputText>
-        <h:commandButton value="#{msg.button_text}" action="dataDiscovery"></h:commandButton>
-    </h:form> -->
-    <h:form>
-		<h:outputText value="Username" />
-		<h:inputText id="username" value="#{loginBean.user}"></h:inputText>
-		<h:message for="username"></h:message>
+	<br></br>
+    <h3><p:outputLabel value="#{msg.header}" /></h3>
+    <h:form id="loginForm">
+    		<p:separator />
+    		<br></br>
+    		<h:panelGrid columns="3" cellpadding="5">
+			<h:outputLabel for="username" value="Username:" />
+			<p:inputText id="username" value="#{loginBean.user}" required="true" label="usernameText"></p:inputText>
+			<p:message for="username" />
+			
+			<h:outputLabel for="password" value="Password:" />
+			<p:password id="password" value="#{loginBean.pwd}" />
+			<p:message for="password" />
+		</h:panelGrid>
 		<br></br><br></br>
-		
-		<h:outputText value="Password" />
-		<h:inputSecret id="password" value="#{loginBean.pwd}"></h:inputSecret>
-		<h:message for="password"></h:message>
-		<br></br><br></br>
-		
-		<h:commandButton action="#{loginBean.validateUserPassword}"
-			value="#{msg.login_button_text}"></h:commandButton>
+		<p:commandButton id="loginbutton" ajax="false" value="#{msg.login_button_text}" icon="fa-lock" action="#{loginBean.validateUserPassword}" update="loginForm" ></p:commandButton>
+		<p:separator />
+ 		<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
 	</h:form>
 </h:body>
 </html>

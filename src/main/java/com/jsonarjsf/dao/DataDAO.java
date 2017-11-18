@@ -19,7 +19,7 @@ public class DataDAO { //TODO: need to be fixed (not correct code)
 		try {
 			con = DatabaseConnect.getConnection();
 			if(con == null) {
-				FaceMessageHelper.showFaceMessage("Failed to connect to the database. Please try again.", "Connection to the database was unsuccessful.");
+				FaceMessageHelper.fatal("Failed to connect to the database. Please try again or please contact to the developer.");
 				return customerList;
 			}
 			ps = con.prepareStatement("Select * from customers");
