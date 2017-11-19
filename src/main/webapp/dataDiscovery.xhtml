@@ -5,7 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 
 <f:loadBundle basename="com.jsonarjsf.properties.messages" var="msg" />
 
@@ -33,11 +34,18 @@
 			<p:panelGrid columns="2" columnClasses="ui-grid-col-4,ui-grid-col-8"
 				layout="grid" styleClass="ui-panelgrid-blank">
 				<p:panel header="Customer List" style="margin-top:20px">
-					<h:outputText
-						value="The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
-                His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
-                Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, 
-                but given to ruthless violence whenever anything stands against the good of the family." />
+					<p:column>
+						<p:dataList value="#{dataBean.customers}" var="customer"
+							pt:data-inset="true" paginator="true" rows="10">
+							<h:outputLink value="##{customer.customerNumber}">
+								<h2>#{customer.customerName}</h2>
+								<p>#{customer.phone}</p>
+								<p class="ui-li-aside">
+									<strong>#{customer.country}</strong>
+								</p>
+							</h:outputLink>
+						</p:dataList>
+					</p:column>
 				</p:panel>
 				<p:panel id="orderDetails" header="Order Details" rendered="true"
 					style="margin-top:20px">

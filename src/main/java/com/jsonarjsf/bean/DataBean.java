@@ -22,6 +22,19 @@ public class DataBean implements Serializable {
 	@PostConstruct
     public void init() {
         //Customers
-        customers = DataDAO.getCustomers();   
+        customers = DataDAO.getCustomers();
+        System.out.println("Printing customer size to check the result:" + customers.size());
     }
+	
+	public List<Customer> getCustomers(){
+		return customers;
+	}
+	
+	public void setCustomers(List<Customer> customers) {
+		this.customers = customers;
+	}
+	
+	public void nothing() {
+		
+	}
 }

@@ -13,7 +13,7 @@ public class LoginDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		try {
-			con = DatabaseConnect.getConnection();
+			con = DatabaseConnect.getConnection("jsonarjsfdb");
 			if(con == null) {
 				FaceMessageHelper.fatal("Failed to connect to the database. Please contact a developer or please try again. Connection to the database was unsuccessful.");
 				return false;

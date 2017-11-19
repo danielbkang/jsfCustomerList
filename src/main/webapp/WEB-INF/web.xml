@@ -43,13 +43,13 @@
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
-	
+
 	<context-param>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
 		<param-value>Development</param-value>
 	</context-param>
-	
-	<!-- FontAwesome  -->
+
+	<!-- FontAwesome -->
 	<context-param>
 		<param-name>primefaces.FONT_AWESOME</param-name>
 		<param-value>true</param-value>
@@ -76,4 +76,19 @@
 	</mime-mapping>
 	<!-- End of FontAwesome -->
 
+	<context-param>
+       <param-name>primefaces.THEME</param-name>
+       <param-value>bootstrap</param-value>
+	</context-param>
+	
+	<!-- blocking any direct access of url -->
+<!-- 	<security-constraint>
+		<display-name>Restrict raw XHTML Documents</display-name>
+		<web-resource-collection>
+			<web-resource-name>XHTML</web-resource-name>
+			<url-pattern>*.xhtml</url-pattern>
+		</web-resource-collection>
+		<auth-constraint />
+	</security-constraint> -->
+	
 </web-app>
