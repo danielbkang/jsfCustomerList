@@ -77,18 +77,18 @@
 	<!-- End of FontAwesome -->
 
 	<context-param>
-       <param-name>primefaces.THEME</param-name>
-       <param-value>bootstrap</param-value>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>bootstrap</param-value>
 	</context-param>
-	
+
+	<!-- HttpSession timeout in 5 min-->
+	<session-config>
+		<session-timeout>5</session-timeout>
+	</session-config>
+
 	<!-- blocking any direct access of url -->
-<!-- 	<security-constraint>
-		<display-name>Restrict raw XHTML Documents</display-name>
-		<web-resource-collection>
-			<web-resource-name>XHTML</web-resource-name>
-			<url-pattern>*.xhtml</url-pattern>
-		</web-resource-collection>
-		<auth-constraint />
-	</security-constraint> -->
-	
+	<!-- <security-constraint> <display-name>Restrict raw XHTML Documents</display-name> 
+		<web-resource-collection> <web-resource-name>XHTML</web-resource-name> <url-pattern>*.xhtml</url-pattern> 
+		</web-resource-collection> <auth-constraint /> </security-constraint> -->
+
 </web-app>

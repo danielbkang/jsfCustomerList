@@ -4,6 +4,34 @@ public class Customer {
 	private int customerNumber;
 	private String customerName;
 	private String contactLastName;
+	private String contactFirstName;
+	private String phone;
+	private String addressLine1;
+	private String addressLine2;
+	private String city;
+	private String state;
+	private String postalCode;
+	private String country;
+	private int salesRepEmployeeNumber;
+	private double creditLimit;
+	
+	public Customer(int customerNumber, String customerName, String contactLastName, String contactFirstName, String phone, 
+			String addressLine1, String addressLine2, String city, String state, String postalCode, String country, int salesRepEmployeeNumber, double creditLimit) {
+		this.customerNumber = customerNumber;
+		this.customerName = customerName;
+		this.contactLastName = contactLastName;
+		this.contactFirstName = contactFirstName;
+		this.phone = phone;
+		this.addressLine1 = addressLine1;
+		this.addressLine2 = addressLine2;
+		this.city = city;
+		this.state = state;
+		this.postalCode = postalCode;
+		this.country = country;
+		this.salesRepEmployeeNumber = salesRepEmployeeNumber;
+		this.creditLimit = creditLimit;
+	}
+	
 	public int getCustomerNumber() {
 		return customerNumber;
 	}
@@ -108,33 +136,33 @@ public class Customer {
 		this.creditLimit = creditLimit;
 	}
 
-	private String contactFirstName;
-	private String phone;
-	private String addressLine1;
-	private String addressLine2;
-	private String city;
-	private String state;
-	private String postalCode;
-	private String country;
-	private int salesRepEmployeeNumber;
-	private double creditLimit;
+	//This function returns true if String text is a substring of any private field of customer.(Stringifying integer to string)
+	//Otherwise, false.
+	public boolean contains(String text) {
+		if( checkContains(Integer.toString(customerNumber),text) || checkContains(customerName,text) || checkContains(contactLastName, text)
+				|| checkContains(contactFirstName, text) || checkContains(phone, text) || checkContains(addressLine1, text)
+				|| checkContains(addressLine2, text) || checkContains(city, text) || checkContains(state, text)
+				|| checkContains(postalCode, text) || checkContains(country, text) || checkContains(Integer.toString(salesRepEmployeeNumber), text)
+				|| checkContains(Double.toString(creditLimit), text))
+			return true;
+		else
+			return false;
+	}
 	
-	public Customer(int customerNumber, String customerName, String contactLastName, String contactFirstName, String phone, 
-			String addressLine1, String addressLine2, String city, String state, String postalCode, String country, int salesRepEmployeeNumber, double creditLimit) {
-		this.customerNumber = customerNumber;
-		this.customerName = customerName;
-		this.contactLastName = contactLastName;
-		this.contactFirstName = contactFirstName;
-		this.phone = phone;
-		this.addressLine1 = addressLine1;
-		this.addressLine2 = addressLine2;
-		this.city = city;
-		this.state = state;
-		this.postalCode = postalCode;
-		this.country = country;
-		this.salesRepEmployeeNumber = salesRepEmployeeNumber;
-		this.creditLimit = creditLimit;
+	private boolean checkContains(String str1, String str2) {
+		if(str1 != null && str1.toLowerCase().contains(str2.toLowerCase()))
+			return true;
+		else
+			return false;
 	}
 
+	@Override
+	public String toString() {
+		return "Customer [customerNumber=" + customerNumber + ", customerName=" + customerName + ", contactLastName="
+				+ contactLastName + ", contactFirstName=" + contactFirstName + ", phone=" + phone + ", addressLine1="
+				+ addressLine1 + ", addressLine2=" + addressLine2 + ", city=" + city + ", state=" + state
+				+ ", postalCode=" + postalCode + ", country=" + country + ", salesRepEmployeeNumber="
+				+ salesRepEmployeeNumber + ", creditLimit=" + creditLimit + "]";
+	}
 	
 }
