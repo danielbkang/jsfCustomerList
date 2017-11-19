@@ -20,11 +20,11 @@
     		<p:separator />
     		<br></br>
     		<h:panelGrid columns="3" cellpadding="5">
-			<h:outputLabel for="username" value="Username:" />
+			<p:outputLabel value="Username:" />
 			<p:inputText id="username" value="#{loginBean.user}" required="true" label="usernameText"></p:inputText>
 			<p:message for="username" />
 			
-			<h:outputLabel for="password" value="Password:" />
+			<p:outputLabel value="Password:" />
 			<p:password id="password" value="#{loginBean.pwd}" />
 			<p:message for="password" />
 		</h:panelGrid>
