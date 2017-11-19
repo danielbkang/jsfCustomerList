@@ -35,13 +35,14 @@
 			<p:panelGrid columns="2" columnClasses="ui-grid-col-4,ui-grid-col-8"
 				layout="grid" styleClass="ui-panelgrid-blank">
 				<p:column>
-					<p:row>
+					<p:panel>
 					<p:outputLabel value="Filter: " />
-					<p:inputText value="#{dataBean.filterValue}" style="width: 80%;margin-left: 30px;">
+					<p:inputText value="#{dataBean.filterValue}" style="width: 80%; 
+    right: 0px;">
 						<p:ajax event="keyup" update="grid"
 							listener="#{dataBean.filterList()}" />
 					</p:inputText>
-					</p:row>
+					</p:panel>
 					<p:panel id="customerListContainer" header="Customer List"
 						style="margin-top:10px">
 
@@ -65,7 +66,7 @@
 					</p:panel>
 				</p:column>
 				<p:panel id="orderDetails" header="Order Details" rendered="true"
-					style="margin-top:42px">
+					style="margin-top:0px">
 					<h:outputText
 						value="The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
                 His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
