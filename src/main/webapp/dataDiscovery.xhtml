@@ -15,7 +15,7 @@
 		<title>#{msg.title}</title>
 	</h:head>
 	<h:body bgcolor="white">
-		<h:form>
+		<h:form id="myForm">
 			<h3>
 				<p:outputLabel value="#{msg.dataDiscovery_header}" />
 			</h3>
@@ -36,12 +36,13 @@
 				layout="grid" styleClass="ui-panelgrid-blank">
 				<p:column>
 					<p:panel>
-					<p:outputLabel value="Filter: " />
-					<p:inputText value="#{dataBean.filterValue}" style="width: 80%; 
+						<p:outputLabel value="Filter: " />
+						<p:inputText value="#{dataBean.filterValue}"
+							style="width: 80%; 
     right: 0px;">
-						<p:ajax event="keyup" update="grid"
-							listener="#{dataBean.filterList()}" />
-					</p:inputText>
+							<p:ajax event="keyup" update="grid"
+								listener="#{dataBean.filterList()}" />
+						</p:inputText>
 					</p:panel>
 					<p:panel id="customerListContainer" header="Customer List"
 						style="margin-top:10px">
@@ -52,12 +53,18 @@
 							<p:dataGrid var="customer" value="#{dataBean.filteredCustomers}"
 								columns="1" layout="grid" id="grid"
 								style="width: 100%; display=block;">
-								<h:commandLink onclick="" ajax="false"
-									style="text-decoration: none;">
+								<h:commandLink ajax="true" style="text-decoration: none;">
+									<p:ajax event="click" update=":myForm:orderDetails"
+										listener="#{dataBean.showOrderDetails(customer)}" />
 									<p:panel header="Name: #{customer.customerName}"
 										style="text-align:center;">
 										<h:panelGrid columns="1" style="width:100%">
 											<h:outputText value="Phone: #{customer.phone}" />
+											<h:outputText value="#{customer.city}, #{customer.country}" />
+											<p:commandLink update=":myForm:customerDetail" oncomplete="PF('customerDialog').show()" title="View Detail">
+												<h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />
+												<f:setPropertyActionListener value="#{customer}" target="#{dataBean.selectedCustomer}" />
+											</p:commandLink>
 										</h:panelGrid>
 									</p:panel>
 								</h:commandLink>
@@ -65,15 +72,38 @@
 						</p:scrollPanel>
 					</p:panel>
 				</p:column>
-				<p:panel id="orderDetails" header="Order Details" rendered="true"
+				<p:panel id="orderDetails" header="Order Details: #{dataBean.selectedCustomer.customerName}" rendered="true"
 					style="margin-top:0px">
-					<h:outputText
-						value="The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
-                His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
-                Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, 
-                but given to ruthless violence whenever anything stands against the good of the family." />
+					<p:dataTable var="orderSummary" value="#{dataBean.orderSummarys}">
+						<p:column headerText="ProductName">
+							<h:outputText value="#{orderSummary.product.productName}" />
+						</p:column>
+
+						<p:column headerText="PriceEach">
+							<h:outputText value="#{orderSummary.orderDetail.priceEach}" style="text-align:center;" />
+						</p:column>
+
+						<p:column headerText="QuantityOrdered">
+							<h:outputText value="#{orderSummary.orderDetail.quantityOrdered}" />
+						</p:column>
+					</p:dataTable>
 				</p:panel>
 			</p:panelGrid>
+			
+			<p:dialog header="Customer Information" widgetVar="customerDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+		        <p:outputPanel id="customerDetail" style="text-align:center;">
+		            <p:panelGrid  columns="2" rendered="#{not empty dataBean.selectedCustomer}" columnClasses="label,value">
+		                <h:outputText value="Name:" />
+		                <h:outputText value="#{dataBean.selectedCustomer.customerName}" />
+		 
+		                <h:outputText value="Phone: " />
+		                <h:outputText value="#{dataBean.selectedCustomer.phone}" />
+		 
+		                <h:outputText value="Address:" />
+		                <h:outputText value="#{dataBean.selectedCustomer.addressLine1}\n #{dataBean.selectedCustomer.addressLine2}"/>
+		            </p:panelGrid>
+		        </p:outputPanel>
+		    </p:dialog>
 		</h:form>
 	</h:body>
 </h:panelGroup>

@@ -10,6 +10,7 @@ import javax.faces.bean.SessionScoped;
 
 import com.jsonarjsf.dao.DataDAO;
 import com.jsonarjsf.model.Customer;
+import com.jsonarjsf.model.OrderSummary;
 
 @ManagedBean
 @SessionScoped
@@ -21,14 +22,15 @@ public class DataBean implements Serializable {
 	private Customer selectedCustomer;
 	private List<Customer> filteredCustomers;
 	private String filterValue;
+	private List<OrderSummary> orderSummarys = null;
+	
+	private String text = "Initial Text";
 	
 	@PostConstruct
     public void init() {
         //Customers
         customers = DataDAO.getCustomers();
         filteredCustomers = customers;
-        DataDAO.getOrderDetail(customers.get(0));
-//        System.out.println("Printing customer size to check the result:" + customers.size());
     }
 	
 	public List<Customer> getCustomers(){
@@ -63,6 +65,28 @@ public class DataBean implements Serializable {
 		this.filterValue = filterValue;
 	}
 
+	public List<OrderSummary> getOrderSummarys() {
+		return orderSummarys;
+	}
+
+	public void setOrderSummarys(List<OrderSummary> orderSummarys) {
+		this.orderSummarys = orderSummarys;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+	
+	public void showOrderDetails(Customer customer) {
+		this.selectedCustomer = customer;
+		this.orderSummarys = DataDAO.getOrderSummary(customer);
+		this.text = orderSummarys.toString();
+	}
+	
 	public void filterList() {
 	    List<Customer> filteredList = new ArrayList<Customer>();
 	    for(Customer customer: customers) {

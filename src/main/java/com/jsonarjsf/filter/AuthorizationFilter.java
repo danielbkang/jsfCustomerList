@@ -29,7 +29,7 @@ public class AuthorizationFilter implements Filter {
 
 			HttpServletRequest reqt = (HttpServletRequest) request;
 			HttpServletResponse resp = (HttpServletResponse) response;
-			HttpSession ses = reqt.getSession(false);
+			HttpSession ses = reqt.getSession(false);  //don't create if it doesn't exist
 			
 			String reqURI = reqt.getRequestURI();
 			System.out.println("RequestedURI is: " + reqURI);
@@ -39,6 +39,7 @@ public class AuthorizationFilter implements Filter {
 
 			if (reqURI.indexOf("/login.xhtml") >= 0
 					|| (ses != null && ses.getAttribute("username") != null)
+//					|| (ses != null && !ses.isNew())
 					|| reqURI.indexOf("/public/") >= 0
 					|| reqURI.contains("javax.faces.resource")) {
 				System.out.println("I am chaining my filter.");
