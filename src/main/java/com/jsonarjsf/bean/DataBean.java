@@ -20,9 +20,10 @@ public class DataBean implements Serializable {
 	
 	private List<Customer> customers;
 	private Customer selectedCustomer;
+	private List<OrderSummary> orderSummarys = null;
+	private OrderSummary selectedOrderSummary;
 	private List<Customer> filteredCustomers;
 	private String filterValue;
-	private List<OrderSummary> orderSummarys = null;
 	
 	private String text = "Initial Text";
 	
@@ -71,6 +72,14 @@ public class DataBean implements Serializable {
 
 	public void setOrderSummarys(List<OrderSummary> orderSummarys) {
 		this.orderSummarys = orderSummarys;
+	}
+
+	public OrderSummary getSelectedOrderSummary() {
+		return selectedOrderSummary;
+	}
+
+	public void setSelectedOrderSummary(OrderSummary selectedOrderSummary) {
+		this.selectedOrderSummary = selectedOrderSummary;
 	}
 
 	public String getText() {

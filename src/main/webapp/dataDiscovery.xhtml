@@ -33,7 +33,7 @@
 			<p:separator />
 
 			<p:panelGrid columns="2" columnClasses="ui-grid-col-4,ui-grid-col-8"
-				layout="grid" styleClass="ui-panelgrid-blank">
+				layout="grid" >
 				<p:column>
 					<p:panel>
 						<p:outputLabel value="Filter: " />
@@ -59,8 +59,9 @@
 									<p:panel header="Name: #{customer.customerName}"
 										style="text-align:center;">
 										<h:panelGrid columns="1" style="width:100%">
-											<h:outputText value="Phone: #{customer.phone}" />
-											<h:outputText value="#{customer.city}, #{customer.country}" />
+											<h:outputText value="Contact Name: #{customer.contactFirstName} #{customer.contactLastName}" style="font-size:80%"/>
+											<h:outputText value="Phone: #{customer.phone}" style="font-size:80%"/>
+											<h:outputText value="#{customer.city}, #{customer.country}" style="font-size:80%"/>
 											<p:commandLink update=":myForm:customerDetail" oncomplete="PF('customerDialog').show()" title="View Detail">
 												<h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />
 												<f:setPropertyActionListener value="#{customer}" target="#{dataBean.selectedCustomer}" />
@@ -74,36 +75,137 @@
 				</p:column>
 				<p:panel id="orderDetails" header="Order Details: #{dataBean.selectedCustomer.customerName}" rendered="true"
 					style="margin-top:0px">
-					<p:dataTable var="orderSummary" value="#{dataBean.orderSummarys}">
-						<p:column headerText="ProductName">
+					<p:dataTable var="orderSummary" value="#{dataBean.orderSummarys}" selectionMode="single" selection="#{dataBean.selectedOrderSummary}" rowKey="#{orderSummary.product.productCode}#{orderSummary.order.orderNumber}" >
+						<p:ajax event="rowSelect" update=":myForm:orderDetailModal" oncomplete="PF('orderDialog').show()" />
+						
+						<p:column headerText="Product Name">
 							<h:outputText value="#{orderSummary.product.productName}" />
 						</p:column>
 
-						<p:column headerText="PriceEach">
-							<h:outputText value="#{orderSummary.orderDetail.priceEach}" style="text-align:center;" />
+						<p:column headerText="Order Date">
+							<h:outputText value="#{orderSummary.order.orderDate}" />
+						</p:column>
+						
+						<p:column headerText="Status">
+							<h:outputText value="#{orderSummary.order.status}" />
+						</p:column>
+						
+						<p:column headerText="Price Each">
+							<h:outputText value="#{orderSummary.orderDetail.priceEach}"  />
 						</p:column>
 
-						<p:column headerText="QuantityOrdered">
+						<p:column headerText="Quantity Ordered">
 							<h:outputText value="#{orderSummary.orderDetail.quantityOrdered}" />
 						</p:column>
+
 					</p:dataTable>
 				</p:panel>
 			</p:panelGrid>
 			
-			<p:dialog header="Customer Information" widgetVar="customerDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+			<p:dialog header="Customer Information" widgetVar="customerDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" closeOnEscape="true" 
+						position="center center" onShow="PF('customerDialog').initPosition()">
 		        <p:outputPanel id="customerDetail" style="text-align:center;">
 		            <p:panelGrid  columns="2" rendered="#{not empty dataBean.selectedCustomer}" columnClasses="label,value">
-		                <h:outputText value="Name:" />
+		                <h:outputText value="Name" />
 		                <h:outputText value="#{dataBean.selectedCustomer.customerName}" />
 		 
-		                <h:outputText value="Phone: " />
+		                <h:outputText value="Contact" />
+		                <h:outputText value="#{dataBean.selectedCustomer.contactFirstName} #{dataBean.selectedCustomer.contactLastName}" />
+
+		                <h:outputText value="Phone" />
 		                <h:outputText value="#{dataBean.selectedCustomer.phone}" />
 		 
-		                <h:outputText value="Address:" />
-		                <h:outputText value="#{dataBean.selectedCustomer.addressLine1}\n #{dataBean.selectedCustomer.addressLine2}"/>
-		            </p:panelGrid>
+		                <h:outputText value="Address Line 1" />
+		                <h:outputText value="#{dataBean.selectedCustomer.addressLine1}" />
+		                
+		                <h:outputText value="Address Line 2" />
+		                <h:outputText value="#{dataBean.selectedCustomer.addressLine2}" />
+						
+						<h:outputText value="City" />
+						<h:outputText value="#{dataBean.selectedCustomer.city}" />
+						
+						<h:outputText value="State" />
+						<h:outputText value="#{dataBean.selectedCustomer.state}" />
+
+						<h:outputText value="Postal Code" />
+						<h:outputText value="#{dataBean.selectedCustomer.postalCode}" />
+
+						<h:outputText value="Country" />
+						<h:outputText value="#{dataBean.selectedCustomer.country}" />
+
+						<h:outputText value="Sales RepEmployeeNumber" />
+						<h:outputText value="#{dataBean.selectedCustomer.salesRepEmployeeNumber}" />
+						
+						<h:outputText value="Credit Limit" />
+						<h:outputText value="#{dataBean.selectedCustomer.creditLimit}" />
+						
+					</p:panelGrid>
 		        </p:outputPanel>
 		    </p:dialog>
+
+			<p:dialog header="Order Detail" widgetVar="orderDialog" modal="true"
+				resizable="false" closeOnEscape="true" position="center center" onShow="PF('orderDialog').initPosition()">
+				<p:outputPanel id="orderDetailModal" style="text-align:center;">
+					<p:panelGrid columns="2"
+						rendered="#{not empty dataBean.selectedOrderSummary}"
+						columnClasses="label,value">
+						<f:facet name="header">
+							<h:outputText value="#{dataBean.selectedOrderSummary.product.productName}" />
+						</f:facet>
+
+						<h:outputText value="Product Code" />
+						<h:outputText value="#{dataBean.selectedOrderSummary.product.productCode}" />
+
+						<h:outputText value="Product Line" />
+						<h:outputText value="#{dataBean.selectedOrderSummary.product.productLine}" />
+
+						<h:outputText value="Product Scale" />
+						<h:outputText value="#{dataBean.selectedOrderSummary.product.productScale}" />
+
+						<h:outputText value="Product Vendor" />
+						<h:outputText value="#{dataBean.selectedOrderSummary.product.productVendor}" />
+
+						<h:outputText value="Product Description" />
+						<h:outputText value="#{dataBean.selectedOrderSummary.product.productDescription}" />
+
+						<h:outputText value="Quantity in Stock" />
+						<h:outputText value="#{dataBean.selectedOrderSummary.product.quantityInStock}" />
+
+						<h:outputText value="Buy Price" />
+						<h:outputText value="#{dataBean.selectedOrderSummary.product.buyPrice}" />
+
+						<h:outputText value="MSRP" />
+						<h:outputText value="#{dataBean.selectedOrderSummary.product.MSRP}" />
+
+						<h:outputText value="Order Number" />
+						<h:outputText value="#{dataBean.selectedOrderSummary.order.orderNumber}" />
+						
+						<h:outputText value="Order Date" />
+						<h:outputText value="#{dataBean.selectedOrderSummary.order.orderDate}" />
+
+						<h:outputText value="Required Date" />
+						<h:outputText value="#{dataBean.selectedOrderSummary.order.requiredDate}" />
+
+						<h:outputText value="Shipped Date" />
+						<h:outputText value="#{dataBean.selectedOrderSummary.order.shippedDate}" />
+						
+						<h:outputText value="Status" />
+						<h:outputText value="#{dataBean.selectedOrderSummary.order.status}" />
+						
+						<h:outputText value="Comments" />
+						<h:outputText value="#{dataBean.selectedOrderSummary.order.comments}" />
+						
+						<h:outputText value="Quantity Ordered" />
+						<h:outputText value="#{dataBean.selectedOrderSummary.orderDetail.quantityOrdered}" />
+						
+						<h:outputText value="Price Each" />
+						<h:outputText value="#{dataBean.selectedOrderSummary.orderDetail.priceEach}" />
+
+						<h:outputText value="Order Line Number" />
+						<h:outputText value="#{dataBean.selectedOrderSummary.orderDetail.orderLineNumber}" />
+					</p:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
 		</h:form>
 	</h:body>
 </h:panelGroup>
